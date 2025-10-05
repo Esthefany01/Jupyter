@@ -36,73 +36,84 @@ class CustomDialog extends StatelessWidget {
     final hasTwoButtons = type == DialogType.delete || type == DialogType.warning;
 
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      elevation: 3,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
       backgroundColor: backgroundColor,
-      surfaceTintColor: Colors.transparent,
-      insetPadding: const EdgeInsets.all(24),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildIcon(context),
-            const SizedBox(height: 16),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: textStyle,
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.topCenter,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 50, 16, 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                if (hasTwoButtons)
-                  Expanded(
-                    child: CustomButton(
-                      styleType: ButtonStyleType.outline,
-                      title: cancelText ?? 'Cancelar',
-                      onPressed: () {
-                        Navigator.pop(context);
-                        onCancel?.call();
-                      },
-                      background: backgroundColor,
-                      foreground: _getColor(context),
-                    ),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: textStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                   ),
-                if (hasTwoButtons) const SizedBox(width: 8),
-                Expanded(
-                  child: CustomButton(
-                    title: hasTwoButtons ? (confirmText ?? 'Confirmar') : 'Ok',
-                    onPressed: hasTwoButtons
-                        ? () {
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (hasTwoButtons)
+                      Expanded(
+                        child: CustomButton(
+                          styleType: ButtonStyleType.outline,
+                          title: cancelText ?? 'Cancelar',
+                          onPressed: () {
                             Navigator.pop(context);
-                            onConfirm?.call();
-                          }
-                        : () => Navigator.pop(context),
-                    background: _getColor(context),
-                    foreground: surfaceColor,
-                    textStyle: TextStyleApp.font16.shade900.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary,
+                            onCancel?.call();
+                          },
+                          background: backgroundColor,
+                          foreground: _getColor(context),
+                        ),
+                      ),
+                    if (hasTwoButtons) const SizedBox(width: 12),
+                    Expanded(
+                      child: CustomButton(
+                        title: hasTwoButtons ? (confirmText ?? 'Confirmar') : 'Ok',
+                        onPressed: hasTwoButtons
+                            ? () {
+                                Navigator.pop(context);
+                                onConfirm?.call();
+                              }
+                            : () => Navigator.pop(context),
+                        background: _getColor(context),
+                        foreground: surfaceColor,
+                        textStyle: TextStyleApp.font16.shade900.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildIcon(BuildContext context) {
-    return CircleAvatar(
-      radius: MediaQuery.of(context).size.height * 0.05,
-      backgroundColor: _getColor(context).withValues(alpha: 0.1),
-      child: SvgPicture.asset(
-        _getIcon(),
-        height: 50,
-        colorFilter: ColorFilter.mode(_getColor(context), BlendMode.srcIn),
+          ),
+          Positioned(
+            top: -35,
+            child: CircleAvatar(
+              radius: 35,
+              backgroundColor: _getColor(context),
+              child: SvgPicture.asset(
+                _getIcon(),
+                height: 40,
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.onSurface,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -3,7 +3,7 @@ class LoginFailure implements Exception {
   LoginFailure({required this.message});
 
   @override
-  String toString() => 'LoginFailure: $message';
+  String toString() => message;
 }
 
 class RegisterFailure implements Exception {
@@ -11,7 +11,7 @@ class RegisterFailure implements Exception {
   RegisterFailure({required this.message});
 
   @override
-  String toString() => 'RegisterFailure: $message';
+  String toString() => message;
 }
 
 class LogoutFailure implements Exception {
@@ -19,5 +19,5 @@ class LogoutFailure implements Exception {
   LogoutFailure({required this.message});
 
   @override
-  String toString() => 'LogoutFailure: $message';
+  String toString() => message;
 }

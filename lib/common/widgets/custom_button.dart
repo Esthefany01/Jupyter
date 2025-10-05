@@ -16,6 +16,8 @@ class CustomButton extends StatelessWidget {
     this.foreground,
     this.textStyle,
     this.alignment,
+    this.borderRadius,
+    this.isBorder = true,
   });
 
   final String title;
@@ -27,6 +29,8 @@ class CustomButton extends StatelessWidget {
   final Color? foreground;
   final TextStyle? textStyle;
   final MainAxisAlignment? alignment;
+  final double? borderRadius;
+  final bool isBorder;
 
   bool get _isOutline => styleType == ButtonStyleType.outline;
 
@@ -34,16 +38,18 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        elevation: 0,
+        elevation: 5,
         minimumSize: const Size(double.infinity, kToolbarHeight),
         backgroundColor: _backgroundColor(context),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-            MediaQuery.of(context).size.width * 0.011,
+            borderRadius ?? MediaQuery.of(context).size.width * 0.011,
           ),
-          side: BorderSide(
-            color: _isOutline ? _foregroundColor(context) : _backgroundColor(context),
-          ),
+          side: isBorder
+              ? BorderSide(
+                  color: _isOutline ? _foregroundColor(context) : _backgroundColor(context),
+                )
+              : BorderSide.none,
         ),
       ),
       onPressed: onPressed,

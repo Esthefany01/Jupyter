@@ -3,19 +3,19 @@ import 'package:jupyter/domain/entities/login/usuario.dart';
 class UsuarioModel {
   final String id;
   final String email;
-  final String? nome;
+  final String? usuario;
 
   UsuarioModel({
     required this.id,
     required this.email,
-    this.nome,
+    this.usuario,
   });
 
   factory UsuarioModel.fromMap(Map<String, dynamic> map) {
     return UsuarioModel(
       id: map['id'] as String,
       email: map['email'] as String,
-      nome: map['nome'] as String?,
+      usuario: map['nome'] as String?,
     );
   }
 
@@ -23,7 +23,7 @@ class UsuarioModel {
     return {
       'id': id,
       'email': email,
-      'nome': nome,
+      'nome': usuario,
     };
   }
 
@@ -31,7 +31,7 @@ class UsuarioModel {
   Usuario toEntity() => Usuario(
         id: id,
         email: email,
-        nome: nome,
+        usuario: usuario,
       );
 
   // Mapper de entidade para model
@@ -39,7 +39,7 @@ class UsuarioModel {
     return UsuarioModel(
       id: usuario.id,
       email: usuario.email,
-      nome: usuario.nome,
+      usuario: usuario.usuario,
     );
   }
 }

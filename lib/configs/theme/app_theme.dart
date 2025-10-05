@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static Color error = const Color(0xFFF03D3D);
+  static Color error = const Color(0xFFff5b5b);
   static Color warning = const Color(0xFFF3B200);
   static Color success = const Color(0xFF9ED747);
   static Color information = const Color(0xFF3C4C70);
@@ -16,7 +16,7 @@ class AppTheme {
     error: Color(0xFFCB0404),
     onError: Color(0xFFFFFFFF),
     surface: Color(0xFFFFFFFF),
-    onSurface: Color(0xFF1A1A1A),
+    onSurface: Color(0xFFFFFFFF),
     primaryContainer: Color(0XFFCFB897),
     onPrimaryContainer: Color(0xFF1A1A1A),
     secondaryContainer: Color(0xFFFD725B),
@@ -32,8 +32,8 @@ class AppTheme {
     onSecondary: Color(0xFF3D1E23),
     error: Color(0xFFFF6F6F),
     onError: Color(0xFF690000),
-    surface: Color(0xFF1E1E1E),
-    onSurface: Color(0xFFE6E6E6),
+    surface: Color(0xFFC0C0C0),
+    onSurface: Color(0xFFC0C0C0),
     primaryContainer: Color(0XFFCFB897),
     onPrimaryContainer: Color(0xFF1A1A1A),
     secondaryContainer: Color(0xFFFD725B),

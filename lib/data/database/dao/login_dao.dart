@@ -10,7 +10,7 @@ class LoginDao {
   Future<UsuarioModel> registrarUsuario(LoginModel model) async {
     final response = await _client.auth.signUp(
       email: model.email,
-      password: model.password,
+      password: model.password!,
     );
 
     if (response.user == null) {
@@ -25,28 +25,37 @@ class LoginDao {
     return UsuarioModel(
       id: response.user!.id,
       email: response.user!.email!,
-      nome: model.nome,
+      usuario: model.nome,
     );
   }
 
   Future<UsuarioModel> login(LoginModel model) async {
-    final data = await _client.from('usuarios').select('id').eq('nome', model.nome).maybeSingle();
-
-    if (data == null) throw const AuthException('Usuário não encontrado');
+    if (model.email == null || model.email!.isEmpty) {
+      throw const AuthException('Email é obrigatório para login');
+    }
+    if (model.password == null || model.password!.isEmpty) {
+      throw const AuthException('Senha é obrigatória para login');
+    }
 
     final response = await _client.auth.signInWithPassword(
-      email: model.email,
-      password: model.password,
+      email: model.email!,
+      password: model.password!,
     );
 
     if (response.session == null || response.user == null) {
       throw const AuthException('Falha ao fazer login');
     }
 
+    final data = await _client.from('usuarios').select('nome').eq('id', response.user!.id).maybeSingle();
+
+    if (data == null) {
+      throw const AuthException('Usuário não encontrado na tabela interna');
+    }
+
     return UsuarioModel(
       id: response.user!.id,
       email: response.user!.email!,
-      nome: model.nome,
+      usuario: data['nome'] as String,
     );
   }
 

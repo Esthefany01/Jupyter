@@ -4,14 +4,12 @@ import 'package:jupyter/common/widgets/custom_dialog.dart';
 import 'package:jupyter/common/widgets/custom_loading.dart';
 
 class DialogUtils {
-  // Texto padrão para todos os dialogs
   static TextStyle _defaultTextStyle(BuildContext context) {
     return TextStyleApp.font16.shade600.copyWith(
-      color: Theme.of(context).colorScheme.onSurface,
+      color: Colors.black,
     );
   }
 
-  // Método genérico para dialogs de mensagem
   static Future<void> _showMessageDialog({
     required BuildContext context,
     required Widget dialogContent,

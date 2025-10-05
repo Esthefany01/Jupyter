@@ -1,19 +1,19 @@
 class LoginModel {
-  final String email;
-  final String password;
-  final String nome;
+  String? email;
+  String? password;
+  String? nome;
 
   LoginModel({
-    required this.email,
-    required this.password,
-    required this.nome,
+    this.email,
+    this.password,
+    this.nome,
   });
 
   factory LoginModel.fromMap(Map<String, dynamic> map) {
     return LoginModel(
-      email: map['email'] as String,
-      password: map['password'] as String,
-      nome: map['nome'] as String,
+      email: map['email'] != null ? map['email'] as String : null,
+      password: map['password'] != null ? map['password'] as String : null,
+      nome: map['nome'] != null ? map['nome'] as String : null,
     );
   }
 
